@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 /* -----------------    COMPONENT     ------------------ */
 
-class Campus extends React.component{
+class Campus extends React.Component{
   constructor(props){
     super(props);
   }
@@ -12,7 +12,9 @@ class Campus extends React.component{
   render(){
     return(
       <div>
-        <h1>Margaret Hamilton Interplanetary Academy of JavaScript</h1>
+        {console.log('Campus Props', this.props)}
+        {console.log('Campus State', this.state)}
+        <h2>MHI Academy Campuses</h2>
       </div>
     );
   }
@@ -20,7 +22,11 @@ class Campus extends React.component{
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = () => ({ campus: '' });
-const mapDispatch = null;
+const mapStateToProps = (campuses) => (campuses);
+const mapDispatch = dispatch => ({
+  logging: () => {
+    console.log('logging in Campus mapDispatch');
+  }
+});
 
-export default connect(mapState, mapDispatch)(Campus);
+export default connect(mapStateToProps, mapDispatch)(Campus);
