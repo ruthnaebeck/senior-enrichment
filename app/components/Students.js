@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 /* -----------------    COMPONENT     ------------------ */
 
-class Student extends React.Component{
+class Students extends React.Component{
   constructor(props){
     super(props);
   }
@@ -17,7 +17,8 @@ class Student extends React.Component{
         <h2>MHI Academy Students</h2>
         {students.map(student =>
           <h3 key={student.id}>
-          <Link to={'/student/' + student.id}>{student.name}</Link></h3>)}
+          <Link to={'/student/' + student.id}>
+            {student.name}</Link></h3>)}
       </div>
     );
   }
@@ -32,4 +33,4 @@ const mapDispatch = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatch)(Student);
+export default connect(mapStateToProps, mapDispatch)(Students);

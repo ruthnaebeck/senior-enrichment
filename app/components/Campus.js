@@ -11,13 +11,17 @@ class Campus extends React.Component{
   }
 
   render(){
-    const campuses = this.props.campus;
+    const students = this.props.student;
+    console.log('students', students);
     return(
       <div>
-        <h2>MHI Academy Campuses</h2>
-        {campuses.map(campus =>
-          <h3 key={campus.id}>
-          <Link to={'/campus/' + campus.id}>{campus.name}</Link></h3>)}
+        <h2>{ this.props.campus[0].name } Campus</h2>
+        <ol>
+          {students.map(student =>
+            <li key={student.id}>
+            <Link to={'/campus/' + student.id}>
+              {student.name}</Link></li>)}
+        </ol>
       </div>
     );
   }
@@ -25,7 +29,7 @@ class Campus extends React.Component{
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapStateToProps = (campuses) => (campuses);
+const mapStateToProps = ({ campus, student }) => ({ campus, student });
 const mapDispatch = dispatch => ({
   logging: () => {
     console.log('logging in Campus mapDispatch');

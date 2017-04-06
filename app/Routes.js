@@ -3,19 +3,23 @@ import { connect } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import Root from './components/Root';
 import Home from './components/Home';
+import Campuses from './components/Campuses';
 import Campus from './components/Campus';
-import { fetchCampuses } from './reducers/campus';
-import Student from './components/Student';
+import { fetchCampuses, fetchCampus } from './reducers/campus';
+import Students from './components/Students';
 import { fetchStudents } from './reducers/student';
 
 /* -----------------    COMPONENT     ------------------ */
 
-const Routes = ({ fetchData }) => (
+const Routes = ({ fetchData, onCampusEnter }) => (
   <Router history={browserHistory}>
-    <Route path="/" component={ Root } onEnter={ fetchData }>
+    <Route path="/" component={ Root }
+      onEnter={ fetchData }>
       <IndexRoute component={ Home } />
-      <Route path="campuses" component={ Campus } />
-      <Route path="students" component={ Student } />
+      <Route path="campuses" component={ Campuses } />
+      <Route path="campus/:id" component={ Campus }
+        onEnter={ onCampusEnter } />
+      <Route path="students" component={ Students } />
       <Route path="*" component={Home} />
     </Route>
   </Router>
@@ -29,6 +33,10 @@ const mapDispatch = dispatch => ({
   fetchData: () => {
     dispatch(fetchCampuses());
     dispatch(fetchStudents());
+  },
+  onCampusEnter: (nextRouterState) => {
+    const campusId = nextRouterState.params.id;
+    dispatch(fetchCampus(campusId));
   }
 });
 

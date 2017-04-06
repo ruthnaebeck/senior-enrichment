@@ -89,3 +89,16 @@ db.sync({ force: true })
   .catch(function(err){
     console.error(err);
   });
+
+// Product.hasMany(Tag);
+
+// Product.create({
+//   id: 1,
+//   title: 'Chair',
+//   tags: [
+//     { name: 'Alpha'},
+//     { name: 'Beta'}
+//   ]
+// }, {
+//   include: [ Tag ]
+// })

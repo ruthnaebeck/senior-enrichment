@@ -8,9 +8,6 @@ const User = require('./user');
 const Student = require('./student');
 const Campus = require('./campus');
 
-Campus.hasMany(Student, {
-	as: 'students',
-	// foreignKey: { allowNull: false }
-});
+Campus.hasMany(Student);
 
 module.exports = {User, Student, Campus};
