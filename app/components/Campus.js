@@ -14,7 +14,6 @@ class Campus extends React.Component{
     const campuses = this.props.campus;
     return(
       <div>
-        {campuses.forEach(campus => console.log('campus: ', campus.name))}
         <h2>MHI Academy Campuses</h2>
         {campuses.map(campus =>
           <h3 key={campus.id}>
