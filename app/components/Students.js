@@ -15,10 +15,27 @@ class Students extends React.Component{
     return(
       <div>
         <h2>MHI Academy Students</h2>
-        {students.map(student =>
-          <h3 key={student.id}>
-          <Link to={'/student/' + student.id}>
-            {student.name}</Link></h3>)}
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Campus</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+          {students.map(student =>
+            <tr key={student.id}>
+              <td>{student.id}</td>
+              <td><Link to={'/student/' + student.id}>
+                {student.name}</Link></td>
+              <td>{student.campus.name}</td>
+              <td><button className="btn btn-default btn-xs">x</button></td>
+            </tr>
+          )}
+          </tbody>
+        </table>
       </div>
     );
   }

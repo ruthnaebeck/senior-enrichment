@@ -22,7 +22,11 @@ api.get('/campus/:id', (req, res, next) => {
 });
 
 api.get('/students', (req, res, next) => {
-	Student.findAll({})
+	Student.findAll({
+		include: [{
+			model: Campus
+		}]
+	})
 	.then(students => res.send(students));
 });
 
