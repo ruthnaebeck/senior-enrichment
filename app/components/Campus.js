@@ -11,8 +11,7 @@ class Campus extends React.Component{
   }
 
   render(){
-    const students = this.props.student;
-    console.log('students', students);
+    const students = this.props.campus[0].students || [];
     return(
       <div>
         <h2>{ this.props.campus[0].name } Campus</h2>
@@ -28,6 +27,8 @@ class Campus extends React.Component{
 }
 
 /* -----------------    CONTAINER     ------------------ */
+
+// ***Need to figure out selectedCampus
 
 const mapStateToProps = ({ campus, student }) => ({ campus, student });
 const mapDispatch = dispatch => ({

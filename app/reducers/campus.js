@@ -9,7 +9,7 @@ const GET_CAMPUS = 'GET_CAMPUS';
 /* ------------   ACTION CREATORS     ------------------ */
 
 const getCampuses = campuses => ({ type: GET_CAMPUSES, campuses });
-const getCampus = campus => ({ type: GET_CAMPUS, campus});
+const getCampus = campus => ({ type: GET_CAMPUS, campus });
 
 
 /* ------------       REDUCERS     ------------------ */
@@ -40,7 +40,7 @@ export const fetchCampus = (id) => dispatch => {
   axios.get(`/api/campus/${id}`)
   .then(res => {
     dispatch(getCampus(res.data));
-    console.log('campus', res.data);
+    // console.log('campus', res.data);
   })
   .catch(err => console.error(err));
 };
