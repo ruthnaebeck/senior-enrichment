@@ -30,7 +30,8 @@ class Students extends React.Component{
               <td>{student.id}</td>
               <td><Link to={'/student/' + student.id}>
                 {student.name}</Link></td>
-              <td>{student.campus.name}</td>
+              <td><Link to={'/campus/' + student.campus.id}>
+                {student.campus.name}</Link></td>
               <td><button className="btn btn-default btn-xs">x</button></td>
             </tr>
           )}
