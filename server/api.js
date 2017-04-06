@@ -31,8 +31,13 @@ api.get('/students', (req, res, next) => {
 });
 
 api.get('/student/:id', (req, res, next) => {
-	Student.findById(req.params.id)
-	.then(student => res.json(student));
+	Student.findOne({
+			include: [{
+				model: Campus,
+			}],
+			where: { id: req.params.id }
+		}).then(campus => res.json(campus))
+		.catch(next);
 });
 
 module.exports = api;

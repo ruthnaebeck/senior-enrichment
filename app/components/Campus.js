@@ -29,9 +29,7 @@ class Campus extends React.Component{
 
 /* -----------------    CONTAINER     ------------------ */
 
-// ***Need to figure out selectedCampus
-
-const mapStateToProps = ({ campus, student }) => ({ campus, student });
+const mapStateToProps = ({ campus }) => ({ campus });
 const mapDispatch = dispatch => ({
   logging: () => {
     console.log('logging in Campus mapDispatch');
