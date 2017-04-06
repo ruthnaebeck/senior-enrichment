@@ -15,7 +15,8 @@ class Student extends React.Component{
     return(
       <div>
         <h3>Student: { student.name }</h3>
-        <h3>Campus: { student.campus.name }</h3>
+        <h3>Campus: <Link to={'/campus/' + student.campus.id}>
+            {student.campus.name}</Link></h3>
         <h4>Email: {student.email }</h4>
       </div>
     );
