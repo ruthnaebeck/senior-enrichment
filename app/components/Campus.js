@@ -11,14 +11,15 @@ class Campus extends React.Component{
   }
 
   render(){
-    const students = this.props.campus[0].students || [];
+    console.log(this.props.campus);
+    const students = this.props.campus.students || [];
     return(
       <div>
-        <h2>{ this.props.campus[0].name } Campus</h2>
+        <h2>{ this.props.campus.name } Campus</h2>
         <ol>
           {students.map(student =>
             <li key={student.id}>
-            <Link to={'/campus/' + student.id}>
+            <Link to={'/student/' + student.id}>
               {student.name}</Link></li>)}
         </ol>
       </div>

@@ -12,7 +12,7 @@ api.get('/campuses', (req, res, next) => {
 });
 
 api.get('/campus/:id', (req, res, next) => {
-	Campus.findAll({
+	Campus.findOne({
 		include: [{
 			model: Student,
 			where: { campusId: req.params.id }

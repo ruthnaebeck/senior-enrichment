@@ -1,16 +1,7 @@
 import { combineReducers } from 'redux';
 
-// const initialState = {}
-
-// const rootReducer = function(state = initialState, action) {
-//   switch(action.type) {
-//     default: return state
-//   }
-// };
-
-// export default rootReducer
-
+import campuses from './campuses';
 import campus from './campus';
-import student from './student';
+import students from './students';
 
-export default combineReducers({ campus, student });
+export default combineReducers({ campuses, campus, students });

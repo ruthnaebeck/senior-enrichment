@@ -11,7 +11,7 @@ class Campuses extends React.Component{
   }
 
   render(){
-    const campuses = this.props.campus;
+    const campuses = this.props.campuses;
     return(
       <div>
         <h2>MHI Academy Campuses</h2>

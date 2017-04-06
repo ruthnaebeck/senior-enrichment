@@ -11,7 +11,7 @@ class Students extends React.Component{
   }
 
   render(){
-    const students = this.props.student;
+    const students = this.props.students;
     return(
       <div>
         <h2>MHI Academy Students</h2>

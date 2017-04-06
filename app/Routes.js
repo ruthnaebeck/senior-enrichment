@@ -4,10 +4,11 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import Root from './components/Root';
 import Home from './components/Home';
 import Campuses from './components/Campuses';
+import { fetchCampuses } from './reducers/campuses';
 import Campus from './components/Campus';
-import { fetchCampuses, fetchCampus } from './reducers/campus';
+import { fetchCampus } from './reducers/campus';
 import Students from './components/Students';
-import { fetchStudents } from './reducers/student';
+import { fetchStudents } from './reducers/students';
 
 /* -----------------    COMPONENT     ------------------ */
 
