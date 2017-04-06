@@ -21,7 +21,8 @@ class Students extends React.Component{
               <th>Id</th>
               <th>Name</th>
               <th>Campus</th>
-              <th>Remove</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -32,7 +33,8 @@ class Students extends React.Component{
                 {student.name}</Link></td>
               <td><Link to={'/campus/' + student.campus.id}>
                 {student.campus.name}</Link></td>
-              <td><button className="btn btn-default btn-xs">x</button></td>
+                <td><button className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil" /></button></td>
+              <td><button className="btn btn-default btn-xs"><span className="glyphicon glyphicon-trash" /></button></td>
             </tr>
           )}
           </tbody>

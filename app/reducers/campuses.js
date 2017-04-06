@@ -4,12 +4,14 @@ import axios from 'axios';
 
 const GET = 'GET_CAMPUSES';
 const CREATE = 'CREATE_CAMPUS';
+export const REMOVE = 'REMOVE_CAMPUS';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
 const get = campuses => ({ type: GET, campuses });
 const create = campus => ({ type: CREATE, campus });
+const remove = id => ({ type: REMOVE, id });
 
 
 /* ------------       REDUCERS     ------------------ */
@@ -20,6 +22,8 @@ export default function reducer(campuses = [], action) {
       return action.campuses;
     case CREATE:
       return [action.campus, ...campuses];
+    case REMOVE:
+      return campuses.filter(campus => campus.id !== action.id);
 
     default:
       return campuses;
@@ -38,4 +42,11 @@ export const addCampus = campus => dispatch => {
   axios.post('/api/campuses', campus)
     .then(res => dispatch(create(res.data)))
     .catch(err => console.error('Error addCampus', err));
+};
+
+export const removeCampus = id => dispatch => {
+  dispatch(remove(id));
+  axios.delete(`/api/campuses/${id}`)
+    .then(res => res.data)
+    .catch(err => console.error('Error removeCampus', err));
 };
