@@ -2,19 +2,19 @@ import axios from 'axios';
 
 /* -----------------    ACTIONS     ------------------ */
 
-const GET_CAMPUS = 'GET_CAMPUS';
+const GET = 'GET_CAMPUS';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const getCampus = campus => ({ type: GET_CAMPUS, campus });
+const get = campus => ({ type: GET, campus });
 
 
 /* ------------       REDUCERS     ------------------ */
 
-export default function reducer(campus = {}, action) {
+export default function reducer(campus = { students: [] }, action) {
   switch (action.type) {
-    case GET_CAMPUS:
+    case GET:
       return action.campus;
 
     default:
@@ -26,8 +26,6 @@ export default function reducer(campus = {}, action) {
 
 export const fetchCampus = (id) => dispatch => {
   axios.get(`/api/campus/${id}`)
-  .then(res => {
-    dispatch(getCampus(res.data));
-  })
-  .catch(err => console.error(err));
+  .then(res => dispatch(get(res.data)))
+  .catch(err => console.error('Error fetchCampus', err));
 };

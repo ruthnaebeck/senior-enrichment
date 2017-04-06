@@ -4,7 +4,7 @@ const db = require('../db');
 const Campus = require('../db/models/campus');
 const Student = require('../db/models/student');
 
-api.get('/hello', (req, res) => res.send({hello: 'world'}));
+/* -----------------  CAMPUS  ------------------ */
 
 api.get('/campuses', (req, res, next) => {
 	Campus.findAll({})
@@ -13,13 +13,19 @@ api.get('/campuses', (req, res, next) => {
 
 api.get('/campus/:id', (req, res, next) => {
 	Campus.findOne({
-		include: [{
-			model: Student,
-			where: { campusId: req.params.id }
-		}]
+		include: [{ model: Student }],
+		where: { id: req.params.id }
 	}).then(campus => res.json(campus))
 	.catch(next);
 });
+
+api.post('/campuses', (req, res, next) => {
+	Campus.create(req.body)
+	.then(campus => res.status(201).json(campus))
+	.catch(next);
+});
+
+/* -----------------  STUDENT  ------------------ */
 
 api.get('/students', (req, res, next) => {
 	Student.findAll({

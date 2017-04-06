@@ -11,8 +11,7 @@ class Campus extends React.Component{
   }
 
   render(){
-    console.log(this.props.campus);
-    const students = this.props.campus.students || [];
+    const students = this.props.campus.students;
     return(
       <div>
         <h2>{ this.props.campus.name } Campus</h2>

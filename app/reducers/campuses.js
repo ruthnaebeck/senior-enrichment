@@ -2,20 +2,24 @@ import axios from 'axios';
 
 /* -----------------    ACTIONS     ------------------ */
 
-const GET_CAMPUSES = 'GET_CAMPUSES';
+const GET = 'GET_CAMPUSES';
+const CREATE = 'CREATE_CAMPUS';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const getCampuses = campuses => ({ type: GET_CAMPUSES, campuses });
+const get = campuses => ({ type: GET, campuses });
+const create = campus => ({ type: CREATE, campus });
 
 
 /* ------------       REDUCERS     ------------------ */
 
 export default function reducer(campuses = [], action) {
   switch (action.type) {
-    case GET_CAMPUSES:
+    case GET:
       return action.campuses;
+    case CREATE:
+      return [action.campus, ...campuses];
 
     default:
       return campuses;
@@ -26,8 +30,12 @@ export default function reducer(campuses = [], action) {
 
 export const fetchCampuses = () => dispatch => {
   axios.get('/api/campuses')
-       .then(res => {
-         dispatch(getCampuses(res.data));
-       })
-       .catch(err => console.error(err));
+    .then(res => dispatch(get(res.data)))
+    .catch(err => console.error('Error fetchCampuses', err));
+};
+
+export const addCampus = campus => dispatch => {
+  axios.post('/api/campuses', campus)
+    .then(res => dispatch(create(res.data)))
+    .catch(err => console.error('Error addCampus', err));
 };
