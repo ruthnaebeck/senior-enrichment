@@ -49,8 +49,10 @@ class Campuses extends React.Component{
           </tbody>
         </table>
         <form onSubmit={this.addSubmit}>
-          <input name="name" placeholder="Campus Name"></input><br />
-          <input name="image" placeholder="Image URL"></input><br />
+          <input name="name" placeholder="Campus Name" />
+          <br />
+          <input name="image" placeholder="Image URL" />
+          <br />
           <button type="submit">Add Campus</button>
         </form>
       </div>

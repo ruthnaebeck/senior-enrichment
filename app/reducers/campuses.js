@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const GET = 'GET_CAMPUSES';
 const CREATE = 'CREATE_CAMPUS';
-export const REMOVE = 'REMOVE_CAMPUS';
+const REMOVE = 'REMOVE_CAMPUS';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
@@ -23,7 +23,8 @@ export default function reducer(campuses = [], action) {
     case CREATE:
       return [action.campus, ...campuses];
     case REMOVE:
-      return campuses.filter(campus => campus.id !== action.id);
+      return campuses.filter(campus =>
+        campus.id !== action.id);
 
     default:
       return campuses;

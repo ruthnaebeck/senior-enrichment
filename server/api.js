@@ -54,4 +54,22 @@ api.get('/student/:id', (req, res, next) => {
 		.catch(next);
 });
 
+api.post('/students', (req, res, next) => {
+	Student.create(req.body, {
+		include: [{
+			model: Campus
+		}]
+	})
+	.then(student => res.status(201).json(student))
+	.catch(next);
+});
+
+api.delete('/students/:id', (req, res, next) => {
+	Student.destroy({
+		where: { id: req.params.id }})
+	.then(student =>
+		res.status(204).send(student + ' student deleted'))
+	.catch(next);
+});
+
 module.exports = api;
