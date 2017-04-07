@@ -21,7 +21,7 @@ export default function reducer(campuses = [], action) {
     case GET:
       return action.campuses;
     case CREATE:
-      return [action.campus, ...campuses];
+      return [...campuses, action.campus];
     case REMOVE:
       return campuses.filter(campus =>
         campus.id !== action.id);
