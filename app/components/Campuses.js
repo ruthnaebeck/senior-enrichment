@@ -34,7 +34,11 @@ class Campuses extends React.Component{
               <td>{campus.id}</td>
               <td><Link to={'/campus/' + campus.id}>
                 {campus.name}</Link></td>
-                <td><button className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil" /></button></td>
+              <td>
+                <button className="btn btn-default btn-xs">
+                <span className="glyphicon glyphicon-pencil" />
+                </button>
+              </td>
               <td>
                 <button
                     className="btn btn-default btn-xs"

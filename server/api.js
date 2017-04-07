@@ -33,6 +33,14 @@ api.delete('/campuses/:id', (req, res, next) => {
 	.catch(next);
 });
 
+api.put('/campus/:id', (req, res, next) => {
+	Campus.update(req.body,
+		{where: {id: req.params.id }})
+	.then(campus =>
+		res.status(200).send(campus + ' campus updated'))
+	.catch(next);
+});
+
 /* -----------------  STUDENT  ------------------ */
 
 api.get('/students', (req, res, next) => {
@@ -55,11 +63,7 @@ api.get('/student/:id', (req, res, next) => {
 });
 
 api.post('/students', (req, res, next) => {
-	Student.create(req.body, {
-		include: [{
-			model: Campus
-		}]
-	})
+	Student.create(req.body)
 	.then(student => res.status(201).json(student))
 	.catch(next);
 });
