@@ -78,4 +78,18 @@ api.delete('/students/:id', (req, res, next) => {
 	.catch(next);
 });
 
+api.put('/student/:id', (req, res, next) => {
+	Student.update(req.body,
+		{ where: {id: req.params.id} })
+	.then(() => {
+		return Student.findOne({
+			include: [{ model: Campus }],
+			where: { id: req.params.id }
+		});
+	})
+	.then(student =>
+		res.status(200).json(student))
+	.catch(next);
+});
+
 module.exports = api;

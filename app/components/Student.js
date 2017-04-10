@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { updateStudent } from '../reducers/campus';
+import { updateStudent } from '../reducers/student';
 
 
 /* -----------------    COMPONENT     ------------------ */
@@ -14,7 +14,7 @@ class Student extends React.Component{
       student: {
         name: '',
         email: '',
-        campus: {}
+        campus: { id: 0, name: ''}
       }
     };
     this.updateSubmit = this.updateSubmit.bind(this);
@@ -29,6 +29,8 @@ class Student extends React.Component{
 
   render(){
     const student = this.state.student;
+    const campuses = this.props.campuses || [];
+    console.log(this.props);
     return(
       <div>
         <h3>Student: { student.name }</h3>
@@ -54,8 +56,12 @@ class Student extends React.Component{
               this.onUpdate({ email: evt.target.value })}
             />
           <br />
-          <select>
-            <option>Update Campus</option>
+          <select name="id">
+            <option>{student.campus.name}</option>
+            {campuses.map(campus =>
+              <option key={campus.id} id={campus.id}>{campus.name}</option>
+            ).filter(obj =>
+              +obj.key !== student.campus.id)}
           </select>
           <br />
           <button type="submit">Update Student</button>
@@ -65,11 +71,12 @@ class Student extends React.Component{
     );
   }
 
-    updateSubmit(evt) {
+  updateSubmit(evt) {
     evt.preventDefault();
     const student = {
       name: evt.target.name.value,
-      image: evt.target.email.value
+      email: evt.target.email.value,
+      campusId: evt.target.campus.id
     };
     this.props.updateStudent(
       this.props.student.id, student);
@@ -86,7 +93,8 @@ class Student extends React.Component{
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapStateToProps = ({ student }) => ({ student });
+const mapStateToProps = ({ student, campuses }) =>
+  ({ student, campuses });
 const mapDispatch = { updateStudent };
 
 export default connect(mapStateToProps, mapDispatch)(Student);
