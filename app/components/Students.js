@@ -34,7 +34,6 @@ class Students extends React.Component{
               <th>Id</th>
               <th>Name</th>
               <th>Campus</th>
-              <th>Edit</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -49,11 +48,6 @@ class Students extends React.Component{
                   {student.campus ? student.campus.name : selectedCampus}
                 </Link>
               </td>
-              <td>
-                <button
-                  className="btn btn-default btn-xs">
-                  <span className="glyphicon glyphicon-pencil" />
-                </button></td>
               <td>
                 <button
                   className="btn btn-default btn-xs"
