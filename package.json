@@ -4,10 +4,6 @@
   "description": "A review time project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha **/*.test.js *.test.js",
-    "build": "webpack",
-    "build-watch": "webpack -w",
-    "seed": "node seed",
     "start": "webpack -w & nodemon server/start.js"
   },
   "keywords": [
