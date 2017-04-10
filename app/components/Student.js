@@ -45,10 +45,10 @@ class Student extends React.Component{
             <span className="glyphicon glyphicon-pencil" />
           </button>
           </h3>
-          <h3>Campus: <Link
+          <h4>Campus: <Link
             to={'/campus/' + student.campusId}>
             {student.campus.name}</Link>
-          </h3>
+          </h4>
           <h4>Email: {student.email }</h4>
         </div>
         <div className="editStudent" style={edit}>

@@ -65,13 +65,18 @@ class Campuses extends React.Component{
 
   addSubmit(evt) {
     evt.preventDefault();
-    const campus = {
-      name: evt.target.name.value,
-      image: evt.target.image.value
-    };
-    this.props.addCampus(campus);
-    evt.target.name.value = '';
-    evt.target.image.value = '';
+    let name = evt.target.name.value;
+    if(name.length){
+      const campus = {
+        name: name,
+        image: evt.target.image.value
+      };
+      this.props.addCampus(campus);
+      evt.target.name.value = '';
+      evt.target.image.value = '';
+    }else{
+      alert('Please enter a campus name');
+    }
   }
 
   removeSubmit(evt) {
