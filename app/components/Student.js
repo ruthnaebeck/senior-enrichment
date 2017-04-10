@@ -16,10 +16,13 @@ class Student extends React.Component{
         email: '',
         campusId: 0,
         campus: { name: ''}
-      }
+      },
+      view: {},
+      edit: { display: 'none' }
     };
     this.updateSubmit = this.updateSubmit.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
+    this.editStudent = this.editStudent.bind(this);
   }
 
   componentWillReceiveProps(newProps, oldProps){
@@ -31,15 +34,25 @@ class Student extends React.Component{
   render(){
     const student = this.state.student;
     const campuses = this.props.campuses || [];
+    let edit = this.state.edit;
+    let view = this.state.view;
     return(
       <div>
-        <h3>Student: { student.name }</h3>
-        <h3>Campus: <Link to={'/campus/' + student.campusId}>
-            {student.campus.name}</Link></h3>
-        <h4>Email: {student.email }</h4>
-        <hr />
-        <div className="editStudent">
-          <h4>Edit Student</h4>
+        <div className="viewStudent" style={view}>
+          <h3>Student: { student.name } <button
+              onClick={this.editStudent}
+              className="btn btn-default btn-xs">
+            <span className="glyphicon glyphicon-pencil" />
+          </button>
+          </h3>
+          <h3>Campus: <Link
+            to={'/campus/' + student.campusId}>
+            {student.campus.name}</Link>
+          </h3>
+          <h4>Email: {student.email }</h4>
+        </div>
+        <div className="editStudent" style={edit}>
+          <h3>Edit Student</h3>
           <form onSubmit={this.updateSubmit}>
           <input
             name="name"
@@ -85,15 +98,25 @@ class Student extends React.Component{
       email: evt.target.email.value,
       campusId: this.state.student.campusId
     };
-    console.log(student);
     this.props.updateStudent(
       this.props.student.id, student);
+    this.setState({
+      view: {},
+      edit: { display: 'none' }
+    });
   }
 
   onUpdate(updateObj){
     const student = this.state.student;
     this.setState({
       campus: Object.assign(student, updateObj)
+    });
+  }
+
+  editStudent(){
+    this.setState({
+      edit: {},
+      view: { display: 'none' }
     });
   }
 
