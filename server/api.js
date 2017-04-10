@@ -35,9 +35,15 @@ api.delete('/campuses/:id', (req, res, next) => {
 
 api.put('/campus/:id', (req, res, next) => {
 	Campus.update(req.body,
-		{where: {id: req.params.id }})
+		{ where: {id: req.params.id} })
+	.then(() => {
+		return Campus.findOne({
+			include: [{ model: Student }],
+			where: { id: req.params.id }
+		});
+	})
 	.then(campus =>
-		res.status(200).send(campus + ' campus updated'))
+		res.status(200).json(campus))
 	.catch(next);
 });
 
@@ -45,20 +51,16 @@ api.put('/campus/:id', (req, res, next) => {
 
 api.get('/students', (req, res, next) => {
 	Student.findAll({
-		include: [{
-			model: Campus
-		}]
+		include: [{ model: Campus }]
 	})
 	.then(students => res.send(students));
 });
 
 api.get('/student/:id', (req, res, next) => {
 	Student.findOne({
-			include: [{
-				model: Campus,
-			}],
-			where: { id: req.params.id }
-		}).then(campus => res.json(campus))
+			where: { id: req.params.id },
+			include: [Campus]
+		}).then(student => res.json(student))
 		.catch(next);
 });
 

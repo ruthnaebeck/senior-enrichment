@@ -2,19 +2,23 @@ import axios from 'axios';
 
 /* -----------------    ACTIONS     ------------------ */
 
-const GET_STUDENT = 'GET_STUDENT';
+const GET = 'GET_STUDENT';
+const UPDATE = 'UPDATE_STUDENT';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const getStudent = student => ({ type: GET_STUDENT, student });
+const get = student => ({ type: GET, student });
+const update = student => ({ type: UPDATE, student });
 
 
 /* ------------       REDUCERS     ------------------ */
 
 export default function reducer(student = { campus: {} }, action) {
   switch (action.type) {
-    case GET_STUDENT:
+    case GET:
+      return action.student;
+    case UPDATE:
       return action.student;
 
     default:
@@ -26,8 +30,12 @@ export default function reducer(student = { campus: {} }, action) {
 
 export const fetchStudent = (id) => dispatch => {
   axios.get(`/api/student/${id}`)
-  .then(res => {
-    dispatch(getStudent(res.data));
-  })
-  .catch(err => console.error(err));
+  .then(res => dispatch(get(res.data)))
+  .catch(err => console.error('Error fetchStudent', err));
+};
+
+export const updateStudent = (id, student) => dispatch => {
+  axios.put(`/api/student/${id}`, student)
+  .then(res => dispatch(update(res.data)))
+  .catch(err => console.error('Error updateStudent', err));
 };
