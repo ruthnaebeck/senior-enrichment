@@ -15,10 +15,13 @@ class Campus extends React.Component{
         name: '',
         image: '',
         students: []
-      }
+      },
+      view: {},
+      edit: { display: 'none' }
     };
     this.updateSubmit = this.updateSubmit.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
+    this.editCampus = this.editCampus.bind(this);
   }
 
   componentWillReceiveProps(newProps, oldProps){
@@ -30,23 +33,28 @@ class Campus extends React.Component{
   render(){
     const students = this.state.campus.students;
     const campus = this.state.campus;
+    let edit = this.state.edit;
+    let view = this.state.view;
     return(
       <div>
-        <h2>
-          { campus.name } Campus <button className="btn btn-default btn-xs">
-          <span className="glyphicon glyphicon-pencil" />
-        </button>
-        </h2>
-        <h4>Image: { campus.image }</h4>
-        <ol>
-          {students.map(student =>
-            <li key={student.id}>
-            <Link to={'/student/' + student.id}>
-              {student.name}</Link></li>)}
-        </ol>
-        <hr />
-        <div className="editCampus">
-          <h4>Edit Campus</h4>
+        <div className="viewCampus" style={view}>
+          <h2>
+            { campus.name } Campus <button
+              onClick={this.editCampus}
+              className="btn btn-default btn-xs">
+            <span className="glyphicon glyphicon-pencil" />
+          </button>
+          </h2>
+          <h4>Image: { campus.image }</h4>
+          <ol>
+            {students.map(student =>
+              <li key={student.id}>
+              <Link to={'/student/' + student.id}>
+                {student.name}</Link></li>)}
+          </ol>
+        </div>
+        <div className="editCampus" style={edit}>
+          <h2>Edit Campus</h2>
           <form onSubmit={this.updateSubmit}>
           <input
             name="name"
@@ -77,12 +85,23 @@ class Campus extends React.Component{
       image: evt.target.image.value
     };
     this.props.updateCampus(this.props.campus.id, campus);
+    this.setState({
+      view: {},
+      edit: { display: 'none' }
+    });
   }
 
   onUpdate(updateObj){
     const campus = this.state.campus;
     this.setState({
       campus: Object.assign(campus, updateObj)
+    });
+  }
+
+  editCampus(){
+    this.setState({
+      edit: {},
+      view: { display: 'none' }
     });
   }
 
