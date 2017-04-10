@@ -90,7 +90,7 @@ class Campus extends React.Component{
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapStateToProps = ({ campus }) => ({ campus });
+const mapStateToProps = ({ campus, campuses }) => ({ campus, campuses });
 const mapDispatch = { updateCampus };
 
 export default connect(mapStateToProps, mapDispatch)(Campus);

@@ -14,7 +14,8 @@ class Student extends React.Component{
       student: {
         name: '',
         email: '',
-        campus: { id: 0, name: ''}
+        campusId: 0,
+        campus: { name: ''}
       }
     };
     this.updateSubmit = this.updateSubmit.bind(this);
@@ -30,11 +31,10 @@ class Student extends React.Component{
   render(){
     const student = this.state.student;
     const campuses = this.props.campuses || [];
-    console.log(this.props);
     return(
       <div>
         <h3>Student: { student.name }</h3>
-        <h3>Campus: <Link to={'/campus/' + student.campus.id}>
+        <h3>Campus: <Link to={'/campus/' + student.campusId}>
             {student.campus.name}</Link></h3>
         <h4>Email: {student.email }</h4>
         <hr />
@@ -56,12 +56,19 @@ class Student extends React.Component{
               this.onUpdate({ email: evt.target.value })}
             />
           <br />
-          <select name="id">
+          <select
+            name="campus"
+            onChange={evt =>
+              this.onUpdate({ campus:
+                { name: evt.target.value },
+                campusId: campuses.find(campus =>
+                    campus.name === evt.target.value).id
+              })
+            }>
             <option>{student.campus.name}</option>
             {campuses.map(campus =>
-              <option key={campus.id} id={campus.id}>{campus.name}</option>
-            ).filter(obj =>
-              +obj.key !== student.campus.id)}
+              <option key={campus.id} id={campus.id}>{campus.name}</option>).filter(obj =>
+                +obj.key !== student.campus.id)}
           </select>
           <br />
           <button type="submit">Update Student</button>
@@ -76,8 +83,9 @@ class Student extends React.Component{
     const student = {
       name: evt.target.name.value,
       email: evt.target.email.value,
-      campusId: evt.target.campus.id
+      campusId: this.state.student.campusId
     };
+    console.log(student);
     this.props.updateStudent(
       this.props.student.id, student);
   }

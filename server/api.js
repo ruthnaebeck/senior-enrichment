@@ -7,7 +7,9 @@ const Student = require('../db/models/student');
 /* -----------------  CAMPUS  ------------------ */
 
 api.get('/campuses', (req, res, next) => {
-	Campus.findAll({})
+	Campus.findAll({
+		order: 'id'
+	})
 	.then(campuses => res.json(campuses));
 });
 
@@ -51,7 +53,8 @@ api.put('/campus/:id', (req, res, next) => {
 
 api.get('/students', (req, res, next) => {
 	Student.findAll({
-		include: [{ model: Campus }]
+		include: [{ model: Campus }],
+		order: 'id'
 	})
 	.then(students => res.send(students));
 });
