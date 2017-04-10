@@ -1,11 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 /* -----------------    COMPONENT     ------------------ */
 
-const Home = () => (
+const Home = (props) => (
   <div>
-    <h1>Margaret Hamilton Interplanetary Academy of JavaScript</h1>
+    <center><h2>Margaret Hamilton Interplanetary Academy of JavaScript</h2>
+    {props.campuses.map(campus =>
+      <div className="col-xs-6" key={campus.id}>
+        <Link to={'/campus/' + campus.id}>
+          <img src={campus.image.length ?
+            campus.image : '/images/NoImage.png'} />
+        </Link>
+        <h4>{campus.name}</h4>
+        <br />
+      </div>
+    )}
+    </center>
   </div>
 );
 
-export default Home;
+/* -----------------    CONTAINER     ------------------ */
+
+const mapStateToProps = (campuses) => (campuses);
+const mapDispatch = null;
+
+export default connect(mapStateToProps, mapDispatch)(Home);
