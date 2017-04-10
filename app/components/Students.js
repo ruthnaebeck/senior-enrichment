@@ -11,7 +11,8 @@ class Students extends React.Component{
     super(props);
 
     this.state = {
-      selectedCampus: ''
+      selectedCampus: '',
+      disabled: 'true'
     };
 
     this.addSubmit = this.addSubmit.bind(this);
@@ -23,6 +24,7 @@ class Students extends React.Component{
     const students = this.props.students;
     const campuses = this.props.campuses;
     let selectedCampus = this.state.selectedCampus;
+    let disabled = this.state.disabled;
     return(
       <div>
         <h2>MHI Academy Students</h2>
@@ -71,8 +73,8 @@ class Students extends React.Component{
           <input name="email" placeholder="Student Email" />
           <br />
           <select
-          name="campus"
-          onChange={this.handleChange} >
+            name="campus"
+            onChange={this.handleChange} >
               <option>Select Campus</option>
             {campuses.map(campus =>
               <option key={campus.id}>
@@ -80,30 +82,43 @@ class Students extends React.Component{
             )}
           </select>
           <br />
-          <button type="submit">Add Student</button>
+          <button
+            type="submit"
+            disabled={disabled}>
+            Add Student
+          </button>
         </form>
       </div>
     );
   }
 
   handleChange(evt){
-    this.setState({ selectedCampus: evt.target.value });
+    this.setState({
+      selectedCampus: evt.target.value,
+      disabled: ''
+    });
   }
 
   addSubmit(evt) {
     evt.preventDefault();
-    const campusId = this.props.campuses.find(campus =>
-      campus.name === this.state.selectedCampus
-    ).id;
-    const student = {
-      name: evt.target.name.value,
-      email: evt.target.email.value,
-      campusId: campusId,
-    };
-    this.props.addStudent(student);
-    evt.target.name.value = '';
-    evt.target.email.value = '';
-    evt.target.campus.value = 'Select Campus';
+    let name = evt.target.name.value;
+    let email = evt.target.email.value;
+    if(name.length && email.length){
+      const campusId = this.props.campuses.find(campus =>
+      campus.name === this.state.selectedCampus).id;
+      const student = {
+        name: name,
+        email: email,
+        campusId: campusId,
+      };
+      this.props.addStudent(student);
+      evt.target.name.value = '';
+      evt.target.email.value = '';
+      evt.target.campus.value = 'Select Campus';
+      this.setState({ disabled: 'true' });
+    }else{
+      alert('Please enter a name / email');
+    }
   }
 
   removeSubmit(evt) {
