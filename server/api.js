@@ -29,7 +29,9 @@ api.post('/campuses', (req, res, next) => {
 
 api.delete('/campuses/:id', (req, res, next) => {
 	Campus.destroy({
-		where: { id: req.params.id }})
+		where: { id: req.params.id },
+		individualHooks: true
+	})
 	.then(campus =>
 		res.status(204).send(campus + ' campus deleted'))
 	.catch(next);
