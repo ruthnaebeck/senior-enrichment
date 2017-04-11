@@ -8,8 +8,7 @@
   },
   "keywords": [
     "react",
-    "redux",
-    "skeleton"
+    "redux"
   ],
   "dependencies": {
     "axios": "^0.16.0",

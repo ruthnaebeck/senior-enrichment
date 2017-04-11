@@ -35,6 +35,7 @@ class Campuses extends React.Component{
                 {campus.name}</Link></td>
               <td>
                 <button
+                    id={campus.id}
                     className="btn btn-default btn-xs"
                     onClick={this.removeSubmit}>
                   <span

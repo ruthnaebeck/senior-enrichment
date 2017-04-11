@@ -5,6 +5,7 @@ import axios from 'axios';
 const GET = 'GET_CAMPUSES';
 const CREATE = 'CREATE_CAMPUS';
 const REMOVE = 'REMOVE_CAMPUS';
+const SEED = 'SEED_DATA';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
@@ -12,6 +13,7 @@ const REMOVE = 'REMOVE_CAMPUS';
 const get = campuses => ({ type: GET, campuses });
 const create = campus => ({ type: CREATE, campus });
 const remove = id => ({ type: REMOVE, id });
+const seed = campuses => ({ type: SEED, campuses})
 
 
 /* ------------       REDUCERS     ------------------ */
@@ -25,6 +27,8 @@ export default function reducer(campuses = [], action) {
     case REMOVE:
       return campuses.filter(campus =>
         campus.id !== action.id);
+    case SEED:
+      return action.campuses;
 
     default:
       return campuses;
@@ -50,4 +54,10 @@ export const removeCampus = id => dispatch => {
   axios.delete(`/api/campuses/${id}`)
     .then(res => res.data)
     .catch(err => console.error('Error removeCampus', err));
+};
+
+export const seedData = () => dispatch => {
+  axios.get('/api/seed')
+    .then(res => dispatch(get(res.data)))
+    .catch(err => console.error('Error seedData', err));
 };

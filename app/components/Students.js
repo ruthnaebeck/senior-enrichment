@@ -50,6 +50,7 @@ class Students extends React.Component{
               </td>
               <td>
                 <button
+                  id={student.id}
                   className="btn btn-default btn-xs"
                   onClick={this.removeSubmit}>
                   <span

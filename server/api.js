@@ -97,4 +97,49 @@ api.put('/student/:id', (req, res, next) => {
 	.catch(next);
 });
 
+/* -----------------  SEED  ------------------ */
+
+var items = [
+    { name: 'Luna',
+      image: '/images/Moon.png',
+      students: [
+				{ name: 'Gabe',
+					email: 'gabe@mhi-academy.com',
+				}
+			]
+    },
+    { name: 'Terra',
+      image: '/images/Earth.jpg',
+			students: [
+				{ name: 'Ashi',
+					email: 'ashi@mhi-academy.com',
+				}
+			]
+    },
+    { name: 'Mars',
+      image: '/images/Mars.jpg',
+			students: [
+				{ name: 'Dan',
+					email: 'dan@mhi-academy.com',
+				}
+			]
+    },
+    { name: 'Titan',
+      image: '/images/Titan.jpg',
+			students: [
+				{ name: 'Marvin',
+					email: 'marvin@mhi-academy.com',
+				}
+			]
+    }
+  ];
+
+api.get('/seed', (req, res, next) => {
+	const createSeed = items.map(item =>
+		Campus.create(item, { include: [Student] }));
+	return Promise.all(createSeed)
+	.then(results => res.status(201).json(results))
+	.catch(next);
+});
+
 module.exports = api;
